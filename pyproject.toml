@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "clean-folder"
+version = "0.1.0"
+description = ""
+authors = ["MykolaMS9 <139469635+MykolaMS9@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "clean_folder"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
