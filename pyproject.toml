@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "clean-folder"
+name = "Folder-Organizer"
 version = "0.1.0"
 description = ""
 authors = ["MykolaMS9 <139469635+MykolaMS9@users.noreply.github.com>"]

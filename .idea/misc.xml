@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (clean_folder)" project-jdk-type="Python SDK" />
+  <component name="Black">
+    <option name="enabledOnReformat" value="true" />
+    <option name="enabledOnSave" value="true" />
+    <option name="executionMode" value="BINARY" />
+    <option name="pathToExecutable" value="C:\Users\kolia\AppData\Local\Programs\Python\Python310\Scripts\black.exe" />
+    <option name="sdkName" value="Poetry (clean_folder)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (clean_folder)" project-jdk-type="Python SDK" />
 </project>
