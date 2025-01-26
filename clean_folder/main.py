@@ -2,9 +2,14 @@ from typing import List
 import shutil
 from threading import Thread
 import logging
-import argparse
 from pathlib import Path
-from additional import normalize, check_name
+import asyncio
+from aiopath import AsyncPath
+import aioshutil
+import logging
+
+
+from clean_folder.additional import normalize, check_name, create_folders
 
 """
     Script for sorting files in a specific folder.
@@ -15,21 +20,12 @@ from additional import normalize, check_name
     Arguments:
     -f, --folder: Path to the folder to be sorted.
     
-    python main.py -f C:/Users/MS/Desktop
+    python main.py -f C:/Users/kolia/OneDrive/Desktop/test
 """
 
-parser = argparse.ArgumentParser(description="App for sorting files in specific folder")
-parser.add_argument("-f", "--folder", default=True)
-
-args = vars(parser.parse_args())
-folder_path = args.get("folder")
-current_folder = Path(folder_path)
-folders = []
-points = "-" * 100
 
 # created new folders
 new_directory = ["images", "video", "documents", "audio", "archives"]
-FOLDERS = [current_folder.joinpath(new_dir) for new_dir in new_directory]
 EXTENSIONS = [
     [".jpeg", ".png", ".jpg", ".svg"],
     [".avi", ".mp4", ".mov", ".mkv"],
@@ -39,25 +35,12 @@ EXTENSIONS = [
 ]
 STR_EXTENSIONS = "".join(["".join(val) for val in EXTENSIONS])
 
-
-def create_folders(folders_list: List[Path]):
-    """
-    Creates directories from a list of paths. If a directory already exists, it does not raise an error.
-
-    This function iterates through a list of directory paths and creates them if they do not already exist.
-    The `parents=True` argument ensures that any missing parent directories are also created.
-    The `exist_ok=True` argument prevents the function from raising an error if a directory already exists.
-
-    Parameters:
-        folders_list (List[Path]): A list of Path objects representing the directories to be created.
-
-    Example:
-        >>> folders = [Path("folder1"), Path("folder2/subfolder")]
-        >>> create_folders(folders)
-        # Creates 'folder1' and 'folder2/subfolder' if they don't already exist.
-    """
-    for path_folder in folders_list:
-        path_folder.mkdir(exist_ok=True, parents=True)
+folders = []
+unknown_files = []
+deleted_folders = []
+ex_folders = [[], [], [], [], []]
+ex_unknown = []
+moved_files = []
 
 
 def graphs_folder(path: Path):
@@ -84,13 +67,6 @@ def graphs_folder(path: Path):
         if val.is_dir() and val not in FOLDERS:
             folders.append(val)
             graphs_folder(val)
-
-
-unknown_files = []
-deleted_folders = []
-ex_folders = [[], [], [], [], []]
-ex_unknown = []
-moved_files = []
 
 
 def move_files(fol_path: Path, index: int):
@@ -294,60 +270,68 @@ def main():
     create_folders(FOLDERS)
     folders.append(current_folder)
     graphs_folder(current_folder)
+    print(folders)
 
-    threads = []
-    for folder in folders:
-        for ind in range(5):
-            threads.append(Thread(target=move_files, args=(folder, ind)))
-            threads[-1].start()
-    [th.join() for th in threads]
-    delete_dir(current_folder)
-    # printing
-    print_logging_files(moved_files)
-    print(points)
-    print(f"Deleted empty folders:")
-    for val in deleted_folders:
-        print("{:^3}{:<40}".format("", f"{val}"))
-    print(points)
-    [
-        print_files(v1, v2)
-        for v1, v2 in zip(
-            FOLDERS, ["Photo:", "Video:", "Documents:", "Music:", "Archives:"]
-        )
-    ]
-    if unknown_files:
-        (
-            print("Next unknown file:")
-            if len(unknown_files) == 1
-            else print(f"Next unknown files:")
-        )
-        for val in set(unknown_files):
-            print("{:^10}{:<40}".format("", f"{val}"))
-    print(points)
-    [
-        print_extensions(v1, v2)
-        for v1, v2 in zip(
-            ex_folders,
-            [
-                "Image extensions:",
-                "Video extensions:",
-                "Documents extensions:",
-                "Audio extensions:",
-                "Archives extensions:",
-            ],
-        )
-    ]
-    print_extensions(ex_unknown, "Unknown extensions:")
-    print(points)
-    # unpacking and deleting archives
-    for val in FOLDERS[4].iterdir():
-        if val.suffix in EXTENSIONS[4]:
-            name = val.name.split(".")
-            fold_dir = FOLDERS[4].joinpath(name[0])
-            fold_dir.mkdir(exist_ok=True, parents=True)
-            shutil.unpack_archive(str(val), str(fold_dir))
-            val.unlink(missing_ok=True)  # delete archive
+    # threads = []
+    # for folder in folders:
+    #     for ind in range(5):
+    #         threads.append(Thread(target=move_files, args=(folder, ind)))
+    #         threads[-1].start()
+    # [th.join() for th in threads]
+    # delete_dir(current_folder)
+    # # printing
+    #
+    # print_logging_files(moved_files)
+    # print(points)
+    # print(f"Deleted empty folders:")
+    # for val in deleted_folders:
+    #     print("{:^3}{:<40}".format("", f"{val}"))
+    # print(points)
+    # [
+    #     print_files(v1, v2)
+    #     for v1, v2 in zip(
+    #         FOLDERS, ["Photo:", "Video:", "Documents:", "Music:", "Archives:"]
+    #     )
+    # ]
+    # if unknown_files:
+    #     (
+    #         print("Next unknown file:")
+    #         if len(unknown_files) == 1
+    #         else print(f"Next unknown files:")
+    #     )
+    #     for val in set(unknown_files):
+    #         print("{:^10}{:<40}".format("", f"{val}"))
+    # print(points)
+    # [
+    #     print_extensions(v1, v2)
+    #     for v1, v2 in zip(
+    #         ex_folders,
+    #         [
+    #             "Image extensions:",
+    #             "Video extensions:",
+    #             "Documents extensions:",
+    #             "Audio extensions:",
+    #             "Archives extensions:",
+    #         ],
+    #     )
+    # ]
+    # print_extensions(ex_unknown, "Unknown extensions:")
+    # print(points)
+    # # unpacking and deleting archives
+    # for val in FOLDERS[4].iterdir():
+    #     if val.suffix in EXTENSIONS[4]:
+    #         name = val.name.split(".")
+    #         fold_dir = FOLDERS[4].joinpath(name[0])
+    #         fold_dir.mkdir(exist_ok=True, parents=True)
+    #         shutil.unpack_archive(str(val), str(fold_dir))
+    #         val.unlink(missing_ok=True)  # delete archive
 
 
 if __name__ == "__main__":
+    folder_path = f"C:/Users/kolia/OneDrive/Desktop/test"
+    current_folder = Path(folder_path)
+
+    points = "-" * 100
+    FOLDERS = [current_folder.joinpath(new_dir) for new_dir in new_directory]
+
     main()

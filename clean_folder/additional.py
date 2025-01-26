@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+from typing import List
 
 newname = 1
 
@@ -109,3 +110,23 @@ def check_name(exsistPath: Path, destinationPath: Path):
     else:
         new_name = str(exsistPath.name).replace(exsistPath.suffix, "")
     return new_name
+
+
+def create_folders(folders_list: List[Path]):
+    """
+    Creates directories from a list of paths. If a directory already exists, it does not raise an error.
+
+    This function iterates through a list of directory paths and creates them if they do not already exist.
+    The `parents=True` argument ensures that any missing parent directories are also created.
+    The `exist_ok=True` argument prevents the function from raising an error if a directory already exists.
+
+    Parameters:
+        folders_list (List[Path]): A list of Path objects representing the directories to be created.
+
+    Example:
+        >>> folders = [Path("folder1"), Path("folder2/subfolder")]
+        >>> create_folders(folders)
+        # Creates 'folder1' and 'folder2/subfolder' if they don't already exist.
+    """
+    for path_folder in folders_list:
+        path_folder.mkdir(exist_ok=True, parents=True)

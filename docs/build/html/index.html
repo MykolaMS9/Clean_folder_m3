@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Folder-Organizer documentation &#8212; Folder-Organizer  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Folder-Organizer  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Folder-Organizer documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="folder-organizer-documentation">
+<h1>Folder-Organizer documentation<a class="headerlink" href="#folder-organizer-documentation" title="Link to this heading">¶</a></h1>
+<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
+documentation for details.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="module-clean_folder.main">
+<span id="main-program"></span><h1>Main program<a class="headerlink" href="#module-clean_folder.main" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.create_folders">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">create_folders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folders_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.create_folders" title="Link to this definition">¶</a></dt>
+<dd><p>Creates directories from a list of paths. If a directory already exists, it does not raise an error.</p>
+<p>This function iterates through a list of directory paths and creates them if they do not already exist.
+The <cite>parents=True</cite> argument ensures that any missing parent directories are also created.
+The <cite>exist_ok=True</cite> argument prevents the function from raising an error if a directory already exists.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>folders_list (List[Path]): A list of Path objects representing the directories to be created.</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">folders</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;folder1&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;folder2/subfolder&quot;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">create_folders</span><span class="p">(</span><span class="n">folders</span><span class="p">)</span>
+<span class="go"># Creates &#39;folder1&#39; and &#39;folder2/subfolder&#39; if they don&#39;t already exist.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.delete_dir">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">delete_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.delete_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Recursively deletes empty directories within the specified path, excluding directories in the <cite>FOLDERS</cite> list.</p>
+<p>This function checks if the provided path is not in the <cite>FOLDERS</cite> list. If it is not, it recursively deletes
+all empty subdirectories within the path. If the path itself becomes empty after deleting its contents,
+it is also deleted and added to the <cite>deleted_folders</cite> list.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (Path): The directory path to process.</p>
+</dd>
+<dt>Note:</dt><dd><ul class="simple">
+<li><p><cite>FOLDERS</cite> is assumed to be a predefined list of directories to exclude from deletion.</p></li>
+<li><p><cite>deleted_folders</cite> is assumed to be a predefined list to store paths of deleted directories.</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FOLDERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;keep_this_folder&quot;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">deleted_folders</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delete_dir</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example_folder&quot;</span><span class="p">))</span>
+<span class="go"># Deletes all empty subdirectories in &#39;example_folder&#39;, excluding &#39;keep_this_folder&#39;.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.graphs_folder">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">graphs_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.graphs_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Recursively traverses a directory and collects all subdirectories that are not in the <cite>FOLDERS</cite> list.</p>
+<p>This function iterates through all items in the given directory. If an item is a directory and not in the
+<cite>FOLDERS</cite> list, it adds the directory to the <cite>folders</cite> list and recursively processes its contents.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (Path): The root directory to start traversing.</p>
+</dd>
+<dt>Note:</dt><dd><ul class="simple">
+<li><p><cite>FOLDERS</cite> is assumed to be a predefined list of directories to exclude.</p></li>
+<li><p><cite>folders</cite> is assumed to be a predefined list where new directories are stored.</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FOLDERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;exclude_this_folder&quot;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">folders</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graphs_folder</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;root_folder&quot;</span><span class="p">))</span>
+<span class="go"># Adds all subdirectories of &#39;root_folder&#39; to `folders`, except those in `FOLDERS`.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.main">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main function to organize files in a directory into categorized folders.</p>
+<p>This function performs the following steps:
+1. Sets up logging and creates predefined folders for file organization.
+2. Recursively traverses the current directory to collect subdirectories.
+3. Uses multithreading to move files into categorized folders based on their extensions.
+4. Deletes empty directories after moving files.
+5. Prints logs of moved files, deleted folders, and categorized files.
+6. Handles unknown files and prints their extensions.
+7. Unpacks archives into their respective folders and deletes the original archive files.</p>
+<dl class="simple">
+<dt>Note:</dt><dd><ul class="simple">
+<li><p><cite>FOLDERS</cite>: A predefined list of folders for categorized files (e.g., Photos, Videos, Documents, etc.).</p></li>
+<li><p><cite>EXTENSIONS</cite>: A predefined list of lists, where each sublist contains file extensions for a specific category.</p></li>
+<li><p><cite>folders</cite>: A list to store directories to process.</p></li>
+<li><p><cite>moved_files</cite>: A list to store logs of moved files.</p></li>
+<li><p><cite>deleted_folders</cite>: A list to store paths of deleted directories.</p></li>
+<li><p><cite>unknown_files</cite>: A list to store files with unknown extensions.</p></li>
+<li><p><cite>ex_folders</cite>: A list to store file extensions of moved files.</p></li>
+<li><p><cite>ex_unknown</cite>: A list to store unknown file extensions.</p></li>
+<li><p><cite>points</cite>: A predefined separator for formatting logs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.move_files">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">move_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fol_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.move_files" title="Link to this definition">¶</a></dt>
+<dd><p>Moves files from a source folder to a destination folder based on their file extensions.</p>
+<p>This function iterates through all files in the source folder (<cite>fol_path</cite>). If a file’s extension matches
+one of the extensions in <cite>EXTENSIONS[index]</cite>, it moves the file to the corresponding destination folder
+(<cite>FOLDERS[index]</cite>). The file name is normalized and checked for uniqueness before moving.</p>
+<p>Files with unknown extensions (not in <cite>STR_EXTENSIONS</cite>) are added to the <cite>unknown_files</cite> list.</p>
+<p>A log of moved and renamed files is stored in <cite>moved_files</cite>.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>fol_path (Path): The source folder containing files to move.
+index (int): The index used to access the corresponding extensions and destination folder in <cite>EXTENSIONS</cite> and <cite>FOLDERS</cite>.</p>
+</dd>
+<dt>Note:</dt><dd><ul class="simple">
+<li><p><cite>EXTENSIONS</cite>: A predefined list of lists, where each sublist contains file extensions for a specific category.</p></li>
+<li><p><cite>FOLDERS</cite>: A predefined list of destination folders corresponding to each category.</p></li>
+<li><p><cite>STR_EXTENSIONS</cite>: A predefined string or list of all known file extensions.</p></li>
+<li><p><cite>unknown_files</cite>: A predefined list to store files with unknown extensions.</p></li>
+<li><p><cite>ex_unknown</cite>: A predefined list to store unknown file extensions.</p></li>
+<li><p><cite>moved_files</cite>: A predefined list to store logs of moved files.</p></li>
+<li><p><cite>ex_folders</cite>: A predefined list to store file extensions of moved files.</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EXTENSIONS</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.doc&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">FOLDERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;text_files&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;image_files&quot;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">STR_EXTENSIONS</span> <span class="o">=</span> <span class="s2">&quot;.txt .doc .jpg .png&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unknown_files</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ex_unknown</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">moved_files</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ex_folders</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">FOLDERS</span><span class="p">))]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">move_files</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;source_folder&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go"># Moves .txt and .doc files from &#39;source_folder&#39; to &#39;text_files&#39;.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.print_extensions">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">print_extensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.print_extensions" title="Link to this definition">¶</a></dt>
+<dd><p>Prints a formatted list of unique file extensions preceded by a descriptive text.</p>
+<p>This function checks if the provided list of extensions (<cite>value</cite>) is not empty. If it contains items,
+it prints the given <cite>text</cite> and then prints the unique file extensions in a formatted manner.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>value (list): A list of file extensions to print.
+text (str): A descriptive text to print before listing the extensions.</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_extensions</span><span class="p">(</span><span class="n">extensions</span><span class="p">,</span> <span class="s2">&quot;Unique file extensions:&quot;</span><span class="p">)</span>
+<span class="go">Unique file extensions:</span>
+<span class="go">           .txt, .jpg, .png</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.print_files">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">print_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.print_files" title="Link to this definition">¶</a></dt>
+<dd><p>Prints the names of all files and directories in the specified path, preceded by a descriptive text.</p>
+<p>This function checks if the provided path exists. If it does, it prints the given <cite>text</cite> and then iterates
+through all items (files and directories) in the path, printing their names in a formatted manner.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (Path): The directory path to list files and directories from.
+text (str): A descriptive text to print before listing the files.</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">print_files</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example_folder&quot;</span><span class="p">),</span> <span class="s2">&quot;Files in example_folder:&quot;</span><span class="p">)</span>
+<span class="go">Files in example_folder:</span>
+<span class="go">      file1.txt</span>
+<span class="go">      file2.txt</span>
+<span class="go">      subfolder/</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.print_logging_files">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">print_logging_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.print_logging_files" title="Link to this definition">¶</a></dt>
+<dd><p>Prints a formatted log of files from a nested list of file paths.</p>
+<p>This function iterates through a nested list of file paths (<cite>file_list</cite>). For each sublist that contains more than one
+file path, it prints a separator (<cite>points</cite>) followed by the file paths in the sublist.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>file_list (List[List[Path]]): A nested list of file paths to log.</p>
+</dd>
+<dt>Note:</dt><dd><ul class="simple">
+<li><p><cite>points</cite> is assumed to be a predefined separator (e.g., a string of dashes or equal signs).</p></li>
+<li><p>Each sublist in <cite>file_list</cite> represents a group of related file paths.</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;file1.txt&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;file2.txt&quot;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;file3.jpg&quot;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;file4.doc&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;file5.doc&quot;</span><span class="p">)]</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_logging_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
+<span class="go">==================================================</span>
+<span class="go">file1.txt</span>
+<span class="go">file2.txt</span>
+<span class="go">==================================================</span>
+<span class="go">file4.doc</span>
+<span class="go">file5.doc</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-clean_folder.additional">
+<span id="additional-module"></span><h1>additional module<a class="headerlink" href="#module-clean_folder.additional" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.check_name">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">check_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exsistPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.additional.check_name" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if a file with the same name already exists in the destination path and generates a unique name if necessary.</p>
+<p>If a file with the same name already exists in the destination path, the function appends a number to the file name
+to make it unique. Otherwise, it returns the original file name without modification.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>existPath (Path): The path of the existing file whose name needs to be checked.
+destinationPath (Path): The destination directory where the file will be moved or copied.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>str: A unique file name. If a file with the same name exists, it appends a number (e.g., <cite>file_1</cite>).</dt><dd><p>Otherwise, it returns the original file name.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">check_name</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example.txt&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;destination_folder&quot;</span><span class="p">))</span>
+<span class="go">&#39;example&#39;  # If no file with the same name exists in the destination folder.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_name</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example.txt&quot;</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;destination_folder&quot;</span><span class="p">))</span>
+<span class="go">&#39;example_1&#39;  # If a file named &#39;example&#39; already exists in the destination folder.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.normalize">
+<span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name:</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.additional.normalize" title="Link to this definition">¶</a></dt>
+<dd><p>Normalizes a file name by replacing non-alphabetic characters and Cyrillic letters with Latin equivalents.</p>
+<p>The function iterates through each character in the file name and:
+- Replaces Cyrillic letters with their Latin equivalents using the <cite>TRANS</cite> dictionary.
+- Leaves Latin letters and digits unchanged.
+- Replaces all other characters with an underscore (_).</p>
+<dl>
+<dt>Parameters:</dt><dd><p>file_name (str): The file name to be normalized.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: The normalized file name.</p>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;файл_з_кирилицею.txt&quot;</span><span class="p">)</span>
+<span class="go">&#39;fail_z_kiryliceiu.txt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;file_with_special_chars@#$.txt&quot;</span><span class="p">)</span>
+<span class="go">&#39;file_with_special_chars__.txt&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Folder-Organizer documentation</a></li>
+<li><a class="reference internal" href="#module-clean_folder.main">Main program</a><ul>
+<li><a class="reference internal" href="#clean_folder.main.create_folders"><code class="docutils literal notranslate"><span class="pre">create_folders()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.delete_dir"><code class="docutils literal notranslate"><span class="pre">delete_dir()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.graphs_folder"><code class="docutils literal notranslate"><span class="pre">graphs_folder()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.move_files"><code class="docutils literal notranslate"><span class="pre">move_files()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.print_extensions"><code class="docutils literal notranslate"><span class="pre">print_extensions()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.print_files"><code class="docutils literal notranslate"><span class="pre">print_files()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.print_logging_files"><code class="docutils literal notranslate"><span class="pre">print_logging_files()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-clean_folder.additional">additional module</a><ul>
+<li><a class="reference internal" href="#clean_folder.additional.check_name"><code class="docutils literal notranslate"><span class="pre">check_name()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Folder-Organizer  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Folder-Organizer documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, MykolaMS9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
