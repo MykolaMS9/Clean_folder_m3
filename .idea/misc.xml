@@ -7,5 +7,5 @@
     <option name="pathToExecutable" value="C:\Users\kolia\AppData\Local\Programs\Python\Python310\Scripts\black.exe" />
     <option name="sdkName" value="Poetry (clean_folder)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (clean_folder)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (folder_organizer)" project-jdk-type="Python SDK" />
 </project>
