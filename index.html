@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Folder-Organizer documentation &#8212; Folder-Organizer  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Folder-Organizer  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Folder-Organizer documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="folder-organizer-documentation">
+<h1>Folder-Organizer documentation<a class="headerlink" href="#folder-organizer-documentation" title="Link to this heading">¶</a></h1>
+<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
+documentation for details.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="module-clean_folder.main">
+<span id="main-program"></span><h1>Main program<a class="headerlink" href="#module-clean_folder.main" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.log_work">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">log_work</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#clean_folder.main.log_work" title="Link to this definition">¶</a></dt>
+<dd><p>Recursively logs the contents of a directory, including files and subdirectories,
+and counts the occurrences of each file extension.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (AsyncPath): The directory path to log and analyze.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>dict: A nested dictionary where:</dt><dd><ul class="simple">
+<li><p>Keys are directory names or file extensions.</p></li>
+<li><p>Values are either subdirectories’ dictionaries or counts of file extensions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Recursively iterates through the directory and its subdirectories.</p></li>
+<li><p>Prints the contents of each directory.</p></li>
+<li><p>Counts the occurrences of each file extension in the directory.</p></li>
+<li><p>Returns a nested dictionary representing the directory structure and file extension counts.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>This function is useful for analyzing and logging the structure of a directory tree.</p></li>
+<li><p>It prints the contents of each directory to the console for visibility.</p></li>
+<li><p>The returned dictionary can be used for further analysis or reporting.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">log_work</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/directory&quot;</span><span class="p">))</span>
+<span class="go"># Logs the contents of &quot;path/to/directory&quot; and returns a dictionary with file extension counts.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.main">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.main" title="Link to this definition">¶</a></dt>
+<dd><p>The main function that orchestrates file processing, including reading folders,
+unzipping archives, moving files, and logging results.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (AsyncPath): The root directory path where the operations will be performed.</p>
+</dd>
+<dt>Behavior:</dt><dd><ol class="arabic simple">
+<li><p>Reads and processes files in the specified directory using <cite>read_folder</cite>.</p></li>
+<li><p>Unzips archives in the directory using <cite>unzip</cite>.</p></li>
+<li><p>Prints a list of moved files and deleted folders.</p></li>
+<li><p>Logs the results of file extensions and their counts using <cite>log_work</cite>.</p></li>
+<li><p>Prints a summary of file extensions and their counts.</p></li>
+</ol>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>This function serves as the entry point for the file processing workflow.</p></li>
+<li><p>It relies on other helper functions (<cite>read_folder</cite>, <cite>unzip</cite>, <cite>log_work</cite>) to perform
+specific tasks.</p></li>
+<li><p>The results are printed to the console in a formatted manner.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">main</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/directory&quot;</span><span class="p">))</span>
+<span class="go"># Processes files, unzips archives, moves files, and logs results.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.main.read_folder">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.main.</span></span><span class="sig-name descname"><span class="pre">read_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.main.read_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Recursively reads and processes files and directories in a specified folder.
+Files are moved to corresponding directories based on their extensions,
+and empty directories are deleted.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (AsyncPath): The directory path to read and process.
+base_dir (AsyncPath): The base directory where files will be moved.
+extensions (Dict): A dictionary mapping file extensions to target directory names.</p>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Recursively iterates through the directory and its subdirectories.</p></li>
+<li><p>Moves files to directories based on their extensions (as defined in <cite>extensions</cite>).</p></li>
+<li><p>Deletes empty directories after processing.</p></li>
+<li><p>Logs errors if file movement or directory deletion fails.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>This function is useful for organizing files into specific directories based on their types.</p></li>
+<li><p>It ensures that empty directories are cleaned up after processing.</p></li>
+<li><p>Errors during file movement or directory deletion are logged for debugging.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">read_folder</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/source&quot;</span><span class="p">),</span> <span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/destination&quot;</span><span class="p">),</span> <span class="p">{</span><span class="s2">&quot;.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;text_files&quot;</span><span class="p">,</span> <span class="s2">&quot;.jpg&quot;</span><span class="p">:</span> <span class="s2">&quot;images&quot;</span><span class="p">})</span>
+<span class="go"># Moves .txt files to &quot;text_files&quot; and .jpg files to &quot;images&quot;, then deletes empty directories.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-clean_folder.additional">
+<span id="additional-module"></span><h1>additional module<a class="headerlink" href="#module-clean_folder.additional" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.async_rmtree">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">async_rmtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.additional.async_rmtree" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously removes a directory tree (including all files and subdirectories).
+Handles read-only files or directories by changing their permissions and retrying the removal.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>filename (AsyncPath): The path to the directory to be removed.</p>
+</dd>
+<dt>Returns:</dt><dd><p>AsyncPath: The path of the removed directory.</p>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Uses <cite>shutil.rmtree</cite> to remove the directory tree.</p></li>
+<li><p>Handles read-only files or directories by calling <cite>handle_remove_readonly</cite> to change
+permissions and retry the removal.</p></li>
+<li><p>Runs the synchronous <cite>shutil.rmtree</cite> operation in a thread pool using <cite>asyncio.to_thread</cite>.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>This function is useful for asynchronous environments where blocking I/O operations
+(like directory removal) need to be offloaded to a thread pool.</p></li>
+<li><p>The <cite>handle_remove_readonly_sync</cite> function is a bridge between synchronous <cite>shutil.rmtree</cite>
+and the asynchronous <cite>handle_remove_readonly</cite> function.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">async_rmtree</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/directory&quot;</span><span class="p">))</span>
+<span class="go"># Removes the directory tree at &quot;path/to/directory&quot; and returns the path.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.handle_remove_readonly">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">handle_remove_readonly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.additional.handle_remove_readonly" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the removal of read-only files or directories by changing their permissions
+and retrying the operation. This function is designed to be used as an error handler
+for file or directory removal operations.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>func (callable): The function that caused the error (e.g., <cite>os.rmdir</cite>, <cite>os.remove</cite>).
+path (str): The path to the file or directory that caused the error.
+exc (tuple): A tuple containing the exception type, value, and traceback.</p>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>If the error is due to a permission issue (<cite>errno.EACCES</cite>), changes the file or
+directory permissions to <cite>0777</cite> (read, write, and execute for all users) and retries
+the operation.</p></li>
+<li><p>If the error is not related to permissions, re-raises the exception.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>This function is typically used with <cite>shutil.rmtree</cite> or similar functions to handle
+read-only files or directories during deletion.</p></li>
+<li><p>Uses <cite>asyncio.to_thread</cite> to run synchronous I/O operations in a thread pool.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">handle_remove_readonly</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">,</span> <span class="s2">&quot;readonly_file.txt&quot;</span><span class="p">,</span> <span class="p">(</span><span class="ne">PermissionError</span><span class="p">,</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;Permission denied&#39;</span><span class="p">),</span> <span class="kc">None</span><span class="p">))</span>
+<span class="go"># Changes permissions of &quot;readonly_file.txt&quot; and retries the removal.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.move_file">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">move_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exist_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_move</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#clean_folder.additional.move_file" title="Link to this definition">¶</a></dt>
+<dd><p>Moves a file from the source directory to the target directory, ensuring that the file name
+is normalized and unique in the target directory. If a file with the same name already exists,
+the function renames the file by incrementing a numeric suffix.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>element (AsyncPath): The path to the file to be moved.
+exist_path (AsyncPath): The source directory path where the file currently resides.
+path_to_move (AsyncPath): The target directory path where the file will be moved.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>str: A message indicating the successful move of the file, including the target directory</dt><dd><p>and the new file name.</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>OSError: If an error occurs during the file move operation.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">move_file</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;source/file.txt&quot;</span><span class="p">),</span> <span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">),</span> <span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">))</span>
+<span class="go">&quot;target     &lt;-- moved target/file.txt&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">move_file</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;source/document_1.pdf&quot;</span><span class="p">),</span> <span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">),</span> <span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">))</span>
+<span class="go">&quot;target     &lt;-- moved target/document_2.pdf&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.normalize">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#clean_folder.additional.normalize" title="Link to this definition">¶</a></dt>
+<dd><p>Normalizes a file name by replacing Cyrillic characters with their Latin equivalents
+and replacing all non-alphanumeric characters with an underscore “_”.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>file_name (str): The input string containing the file name to be normalized.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>str: The normalized string where:</dt><dd><ul class="simple">
+<li><p>Cyrillic characters are replaced with their Latin equivalents.</p></li>
+<li><p>Non-alphanumeric characters are replaced with “_”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;файл_з_кирилицею.txt&quot;</span><span class="p">)</span>
+<span class="go">&quot;fail_z_kiryliceiu.txt&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;file_with_123_and_!@#.txt&quot;</span><span class="p">)</span>
+<span class="go">&quot;file_with_123_and____.txt&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;мій_документ.pdf&quot;</span><span class="p">)</span>
+<span class="go">&quot;mii_dokument.pdf&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.re_name">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">re_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#clean_folder.additional.re_name" title="Link to this definition">¶</a></dt>
+<dd><p>Renames a file by incrementing a numeric suffix or adding a new one if it doesn’t exist.
+The function assumes that the numeric suffix is separated by an underscore “_”.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>_name (str): The input file name, including its extension.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: The renamed file name with an incremented numeric suffix or a new suffix added.</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">re_name</span><span class="p">(</span><span class="s2">&quot;file_1.txt&quot;</span><span class="p">)</span>
+<span class="go">&quot;file_2.txt&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">re_name</span><span class="p">(</span><span class="s2">&quot;document.pdf&quot;</span><span class="p">)</span>
+<span class="go">&quot;document_1.pdf&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">re_name</span><span class="p">(</span><span class="s2">&quot;data_10.csv&quot;</span><span class="p">)</span>
+<span class="go">&quot;data_11.csv&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">re_name</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">)</span>
+<span class="go">&quot;image_1.png&quot;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="clean_folder.additional.unzip">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clean_folder.additional.</span></span><span class="sig-name descname"><span class="pre">unzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">archive_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clean_folder.additional.unzip" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts files from archives found in a specified directory and organizes them into subdirectories.
+Each archive is extracted into a folder named after the archive (without its extension),
+and the original archive file is deleted after extraction.</p>
+<dl>
+<dt>Parameters:</dt><dd><p>path (AsyncPath): The directory path to search for archives.
+archive_dir (str): The suffix of the subdirectories containing the archives.</p>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Iterates through all subdirectories in the specified path that end with <cite>archive_dir</cite>.</p></li>
+<li><p>For each file in these subdirectories, checks if it is an archive.</p></li>
+<li><p>Extracts the archive into a folder named after the archive (without its extension).</p></li>
+<li><p>Deletes the original archive file after successful extraction.</p></li>
+<li><p>Logs an error if extraction fails.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>Uses <cite>patoolib</cite> for archive extraction.</p></li>
+<li><p>Skips files without extensions.</p></li>
+<li><p>Creates necessary directories if they do not exist.</p></li>
+</ul>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">unzip</span><span class="p">(</span><span class="n">AsyncPath</span><span class="p">(</span><span class="s2">&quot;path/to/archives&quot;</span><span class="p">),</span> <span class="s2">&quot;archive_dir&quot;</span><span class="p">)</span>
+<span class="go"># Archives in &quot;path/to/archives/archive_dir&quot; are extracted into subfolders.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Folder-Organizer documentation</a></li>
+<li><a class="reference internal" href="#module-clean_folder.main">Main program</a><ul>
+<li><a class="reference internal" href="#clean_folder.main.log_work"><code class="docutils literal notranslate"><span class="pre">log_work()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.main.read_folder"><code class="docutils literal notranslate"><span class="pre">read_folder()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-clean_folder.additional">additional module</a><ul>
+<li><a class="reference internal" href="#clean_folder.additional.async_rmtree"><code class="docutils literal notranslate"><span class="pre">async_rmtree()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.handle_remove_readonly"><code class="docutils literal notranslate"><span class="pre">handle_remove_readonly()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.move_file"><code class="docutils literal notranslate"><span class="pre">move_file()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.re_name"><code class="docutils literal notranslate"><span class="pre">re_name()</span></code></a></li>
+<li><a class="reference internal" href="#clean_folder.additional.unzip"><code class="docutils literal notranslate"><span class="pre">unzip()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Folder-Organizer  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Folder-Organizer documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, MykolaMS9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
