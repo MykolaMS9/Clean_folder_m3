@@ -389,6 +389,20 @@ files = [
 ]
 
 [[package]]
+name = "patool"
+version = "3.1.0"
+description = "portable archive file manager"
+optional = false
+python-versions = ">=3.10"
+files = [
+    {file = "patool-3.1.0-py2.py3-none-any.whl", hash = "sha256:401a918bdbf65434fd59c038bdb2c15ff7185675aedddb4494330c3e8e4fe80d"},
+    {file = "patool-3.1.0.tar.gz", hash = "sha256:417ed1ff7b9c979ce8a10114ed9bc280b08e3af3df3072e761303a3e00aaba04"},
+]
+
+[package.extras]
+argcompletion = ["argcomplete (==3.5.1)"]
+
+[[package]]
 name = "pygments"
 version = "2.19.1"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -401,6 +415,17 @@ files = [
 
 [package.extras]
 windows-terminal = ["colorama (>=0.4.6)"]
+
+[[package]]
+name = "rarfile"
+version = "4.2"
+description = "RAR archive reader for Python"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "rarfile-4.2-py3-none-any.whl", hash = "sha256:8757e1e3757e32962e229cab2432efc1f15f210823cc96ccba0f6a39d17370c9"},
+    {file = "rarfile-4.2.tar.gz", hash = "sha256:8e1c8e72d0845ad2b32a47ab11a719bc2e41165ec101fd4d3fe9e92aa3f469ef"},
+]
 
 [[package]]
 name = "requests"
@@ -616,6 +641,17 @@ files = [
 ]
 
 [[package]]
+name = "unrar"
+version = "0.4"
+description = "Wrapper for UnRAR library, ctypes-based."
+optional = false
+python-versions = "*"
+files = [
+    {file = "unrar-0.4-py3-none-any.whl", hash = "sha256:0ce03e28bfa90415ee1a92c8d38cad8ea244427a59a8a39c0d42bac8727cfaa0"},
+    {file = "unrar-0.4.tar.gz", hash = "sha256:b24447a5b93024be600ef8255668ba23a30f451176577b691559ea1359f7d164"},
+]
+
+[[package]]
 name = "urllib3"
 version = "2.3.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -635,4 +671,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "2470f8187a2e22da901d8e00a67fc2aeab1818dbafd5165c99701584c732b27e"
+content-hash = "2e5f9a1189835ef0cb64c021633c88702a7b467553c46ba2f6e86a6b10b3da0c"
